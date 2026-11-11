@@ -30,7 +30,7 @@
         <Border DockPanel.Dock="Top" Background="{StaticResource Banner}" Padding="14,8">
             <DockPanel LastChildFill="False">
                 <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" Margin="0,0,18,0">
-                    <Image Source="pack://application:,,,/Assets/icon-256.png" Width="42" Height="42" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    <Image Source="pack://application:,,,/BurhanNexus.Vaccinator;component/Assets/icon-256.png" Width="42" Height="42" RenderOptions.BitmapScalingMode="HighQuality"/>
                     <StackPanel Margin="10,0,0,0" VerticalAlignment="Center">
                         <TextBlock Text="BURHAN NEXUS VACCINATOR" Foreground="White" FontSize="17" FontWeight="Bold"/>
                         <TextBlock Text="{Binding CenterName}" Foreground="#BFF3EC" FontSize="12" TextTrimming="CharacterEllipsis" MaxWidth="360"/>

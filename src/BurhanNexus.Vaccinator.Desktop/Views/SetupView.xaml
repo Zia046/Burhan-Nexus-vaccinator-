@@ -4,7 +4,7 @@
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <Border Width="460" Padding="32" Margin="20" Style="{StaticResource GlassCard}" Effect="{StaticResource CardShadow}" VerticalAlignment="Center" HorizontalAlignment="Center">
             <StackPanel>
-                <Image Source="pack://application:,,,/Assets/icon-256.png" Width="84" Height="84" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                <Image Source="pack://application:,,,/BurhanNexus.Vaccinator;component/Assets/icon-256.png" Width="84" Height="84" HorizontalAlignment="Center" Margin="0,0,0,8"/>
                 <TextBlock Text="Burhan Nexus Vaccinator" FontSize="24" FontWeight="SemiBold" Foreground="{StaticResource Navy}" HorizontalAlignment="Center"/>
                 <TextBlock Text="First-time setup: enter your center name and create the administrator account." Style="{StaticResource SubTitle}" TextAlignment="Center" Margin="0,4,0,18"/>
                 <TextBlock Text="Hospital / Vaccination Center Name" Style="{StaticResource Label}"/>

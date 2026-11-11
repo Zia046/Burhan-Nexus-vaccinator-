@@ -193,7 +193,7 @@
                 <Border Style="{StaticResource Card}" Margin="0,8,0,0" MaxWidth="760" HorizontalAlignment="Left">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                            <Image Source="pack://application:,,,/Assets/icon-256.png" Width="90" Height="90"/>
+                            <Image Source="pack://application:,,,/BurhanNexus.Vaccinator;component/Assets/icon-256.png" Width="90" Height="90"/>
                             <StackPanel Margin="14,0,0,0" VerticalAlignment="Center">
                                 <TextBlock Text="{Binding AboutTitle}" FontSize="24" FontWeight="Bold" Foreground="{StaticResource Navy}"/>
                                 <TextBlock Text="{Binding AboutDeveloper}" FontSize="14" Foreground="{StaticResource Primary}" FontWeight="SemiBold"/>
@@ -201,7 +201,7 @@
                             </StackPanel>
                         </StackPanel>
                         <TextBlock Text="{Binding AboutText}" TextWrapping="Wrap" FontSize="14" Margin="0,0,0,12"/>
-                        <Image Source="pack://application:,,,/Assets/burhan-nexus-logo.png" Height="60" HorizontalAlignment="Left" Margin="0,0,0,10"/>
+                        <Image Source="pack://application:,,,/BurhanNexus.Vaccinator;component/Assets/burhan-nexus-logo.png" Height="60" HorizontalAlignment="Left" Margin="0,0,0,10"/>
                         <TextBlock Text="{Binding AboutContact}" FontWeight="SemiBold"/>
                         <TextBlock Text="{Binding AboutCopyright}" Foreground="#64748B" Margin="0,4,0,12"/>
                         <Border Style="{StaticResource Note}"><TextBlock Text="{Binding AboutSafety}" TextWrapping="Wrap" Foreground="#92400E"/></Border>

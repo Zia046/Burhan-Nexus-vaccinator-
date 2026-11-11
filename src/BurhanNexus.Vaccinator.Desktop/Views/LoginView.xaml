@@ -4,7 +4,7 @@
     <Grid>
         <Border Width="400" Padding="32" Style="{StaticResource GlassCard}" Effect="{StaticResource CardShadow}" VerticalAlignment="Center" HorizontalAlignment="Center">
             <StackPanel>
-                <Image Source="pack://application:,,,/Assets/icon-256.png" Width="90" Height="90" HorizontalAlignment="Center"/>
+                <Image Source="pack://application:,,,/BurhanNexus.Vaccinator;component/Assets/icon-256.png" Width="90" Height="90" HorizontalAlignment="Center"/>
                 <TextBlock Text="Burhan Nexus Vaccinator" FontSize="24" FontWeight="SemiBold" Foreground="{StaticResource Navy}" HorizontalAlignment="Center" Margin="0,8,0,0"/>
                 <TextBlock Text="{Binding CenterName}" Foreground="{StaticResource Primary}" FontWeight="SemiBold" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center"/>
                 <TextBlock Text="Sign in to continue" Foreground="Gray" HorizontalAlignment="Center" Margin="0,4,0,22"/>
@@ -17,7 +17,7 @@
             </StackPanel>
         </Border>
         <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,18">
-            <Image Source="pack://application:,,,/Assets/burhan-nexus-logo.png" Height="40" HorizontalAlignment="Center"/>
+            <Image Source="pack://application:,,,/BurhanNexus.Vaccinator;component/Assets/burhan-nexus-logo.png" Height="40" HorizontalAlignment="Center"/>
             <TextBlock Text="Developed by Burhan Nexus  ·  03475093446  ·  ziaullah.046@gmail.com" Foreground="#475569" FontSize="12" HorizontalAlignment="Center" Margin="0,4,0,0"/>
         </StackPanel>
     </Grid>
