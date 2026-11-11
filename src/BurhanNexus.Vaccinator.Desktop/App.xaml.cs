@@ -2,6 +2,7 @@ using System.IO;
 using System.Windows;
 using BurhanNexus.Vaccinator.Application;
 using BurhanNexus.Vaccinator.Infrastructure;
+using BurhanNexus.Vaccinator.Desktop.ViewModels;
 
 namespace BurhanNexus.Vaccinator.Desktop;
 
