@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\BurhanNexus.Vaccinator.Domain\BurhanNexus.Vaccinator.Domain.csproj" />
+    <ProjectReference Include="..\BurhanNexus.Vaccinator.Infrastructure\BurhanNexus.Vaccinator.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>

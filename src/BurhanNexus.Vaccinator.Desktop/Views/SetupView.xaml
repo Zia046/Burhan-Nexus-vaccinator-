@@ -1,0 +1,25 @@
+<UserControl x:Class="BurhanNexus.Vaccinator.Desktop.Views.SetupView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Border Width="460" Padding="32" Margin="20" Style="{StaticResource GlassCard}" Effect="{StaticResource CardShadow}" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel>
+                <Image Source="pack://application:,,,/Assets/icon-256.png" Width="84" Height="84" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                <TextBlock Text="Burhan Nexus Vaccinator" FontSize="24" FontWeight="SemiBold" Foreground="{StaticResource Navy}" HorizontalAlignment="Center"/>
+                <TextBlock Text="First-time setup: enter your center name and create the administrator account." Style="{StaticResource SubTitle}" TextAlignment="Center" Margin="0,4,0,18"/>
+                <TextBlock Text="Hospital / Vaccination Center Name" Style="{StaticResource Label}"/>
+                <TextBox Text="{Binding CenterName}"/>
+                <TextBlock Text="Administrator full name" Style="{StaticResource Label}"/>
+                <TextBox Text="{Binding FullName}"/>
+                <TextBlock Text="Username" Style="{StaticResource Label}"/>
+                <TextBox Text="{Binding Username}"/>
+                <TextBlock Text="Password (at least 6 characters)" Style="{StaticResource Label}"/>
+                <PasswordBox x:Name="Pwd" PasswordChanged="OnPassword"/>
+                <TextBlock Text="Confirm password" Style="{StaticResource Label}"/>
+                <PasswordBox x:Name="Pwd2" PasswordChanged="OnPassword"/>
+                <Button Content="Complete setup" Command="{Binding SaveCommand}" IsDefault="True" Margin="0,6,0,0"/>
+                <TextBlock Text="Developed by Burhan Nexus · 03475093446" HorizontalAlignment="Center" Foreground="#64748B" FontSize="11" Margin="0,16,0,0"/>
+            </StackPanel>
+        </Border>
+    </ScrollViewer>
+</UserControl>

@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\BurhanNexus.Vaccinator.Application\BurhanNexus.Vaccinator.Application.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- QuestPDF Community licence: free below USD 1M annual revenue. -->
+    <PackageReference Include="QuestPDF" Version="2026.7.1" />
+    <PackageReference Include="ClosedXML" Version="0.105.1" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,13 @@
+BURHAN NEXUS VACCINATOR - THIRD-PARTY NOTICES
+
+Burhan Nexus Vaccinator includes the following third-party components, used under their own licences:
+
+- .NET, WPF and Entity Framework Core (Microsoft) - MIT License
+- SQLite - public domain
+- SQLitePCLRaw and Microsoft.Data.Sqlite - Apache License 2.0 / MIT License
+- ClosedXML, DocumentFormat.OpenXml, ExcelNumberFormat, RBush, ClosedXML.Parser - MIT License
+- SixLabors.Fonts (used by ClosedXML) - Apache License 2.0 / Six Labors Split License
+- QuestPDF - QuestPDF Community License. Free for organisations and individuals below
+  USD 1,000,000 annual gross revenue; a paid licence is required above it.
+  See https://www.questpdf.com/license/
+- xUnit (tests only, not shipped) - Apache License 2.0

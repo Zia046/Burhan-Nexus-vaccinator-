@@ -1,0 +1,179 @@
+<UserControl x:Class="BurhanNexus.Vaccinator.Desktop.Views.PatientProfileView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Style="{StaticResource Card}" Padding="16,12" Margin="0,0,0,10">
+            <DockPanel>
+                <WrapPanel DockPanel.Dock="Right" VerticalAlignment="Center">
+                    <Button Content="Edit" Command="{Binding EditCommand}" Style="{StaticResource Small}"/>
+                    <Button Content="Print Card" Command="{Binding PrintCardCommand}" Style="{StaticResource Small}"/>
+                    <Button Content="Print History" Command="{Binding PrintHistoryCommand}" Style="{StaticResource Small}"/>
+                    <Button Content="Print Schedule" Command="{Binding PrintScheduleCommand}" Style="{StaticResource Small}"/>
+                    <Button Content="Registration Form" Command="{Binding PrintFormCommand}" Style="{StaticResource Small}"/>
+                    <Button Content="Insulin" Command="{Binding InsulinCommand}" Style="{StaticResource Small}" Background="#7C3AED"/>
+                    <Button Content="Anti-Rabies" Command="{Binding RabiesCommand}" Style="{StaticResource Small}" Background="#B91C1C"/>
+                </WrapPanel>
+                <StackPanel>
+                    <TextBlock Text="{Binding Header}" FontSize="20" FontWeight="SemiBold" Foreground="{StaticResource Navy}"/>
+                    <TextBlock Text="{Binding SubHeader}" Foreground="#475569" TextWrapping="Wrap"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                        <TextBlock Text="Next appointment: " FontWeight="SemiBold" Foreground="#64748B"/>
+                        <TextBlock Text="{Binding NextText}" FontWeight="SemiBold" Foreground="{StaticResource Primary}"/>
+                    </StackPanel>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <StackPanel Grid.Row="1">
+            <Border Style="{StaticResource Alert}" Visibility="{Binding HasReview, Converter={StaticResource BoolToVis}}">
+                <TextBlock Text="{Binding ReviewText}" Foreground="#991B1B" FontWeight="SemiBold" TextWrapping="Wrap"/>
+            </Border>
+            <!-- New vaccination entry directly from the profile -->
+            <Border Style="{StaticResource Card}" Padding="14,10" Margin="0,0,0,10">
+                <WrapPanel>
+                    <StackPanel Width="200" Margin="0,0,10,0">
+                        <TextBlock Text="Vaccine" Style="{StaticResource Label}"/>
+                        <ComboBox ItemsSource="{Binding Vaccines}" SelectedItem="{Binding Vaccine}" DisplayMemberPath="Name" Margin="0,2,0,0"/>
+                    </StackPanel>
+                    <StackPanel Width="330" Margin="0,0,10,0">
+                        <TextBlock Text="Protocol / schedule" Style="{StaticResource Label}"/>
+                        <ComboBox ItemsSource="{Binding Protocols}" SelectedItem="{Binding Protocol}" DisplayMemberPath="Name" Margin="0,2,0,0"/>
+                    </StackPanel>
+                    <Button Content="Give Vaccine Now" Command="{Binding NewVaccinationCommand}" VerticalAlignment="Bottom" Margin="0,0,10,0"/>
+                    <StackPanel Width="150" Margin="0,0,10,0">
+                        <TextBlock Text="or plan from date" Style="{StaticResource Label}"/>
+                        <DatePicker SelectedDate="{Binding FirstDoseDate}" Margin="0,2,0,0"/>
+                    </StackPanel>
+                    <Button Content="Create Schedule" Command="{Binding StartCourseCommand}" Style="{StaticResource NavyButton}" VerticalAlignment="Bottom"/>
+                </WrapPanel>
+            </Border>
+        </StackPanel>
+
+        <TabControl Grid.Row="2" Background="Transparent" BorderThickness="0">
+            <TabItem Header="Upcoming &amp; Schedule">
+                <Grid Margin="0,8,0,0">
+                    <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                    <WrapPanel Margin="0,0,0,8">
+                        <Button Content="Record Selected Dose" Command="{Binding GiveDoseCommand}" Style="{StaticResource Small}"/>
+                        <Button Content="Reschedule" Command="{Binding RescheduleCommand}" Style="{StaticResource Small}" Background="#6B91B5"/>
+                        <Button Content="Patient Not Arrived" Command="{Binding NotArrivedCommand}" Style="{StaticResource Small}" Background="#C2410C"/>
+                        <Button Content="Stop Course" Command="{Binding StopCourseCommand}" Style="{StaticResource Small}" Background="#64748B"/>
+                    </WrapPanel>
+                    <DataGrid Grid.Row="1" ItemsSource="{Binding P.Doses}" SelectedItem="{Binding SelectedDose}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" HeadersVisibility="Column">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Due date" Binding="{Binding DueText}" Width="100"/>
+                            <DataGridTextColumn Header="Vaccine" Binding="{Binding Vaccine}" Width="130"/>
+                            <DataGridTextColumn Header="Dose" Binding="{Binding DoseLabel}" Width="150"/>
+                            <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="100" ElementStyle="{StaticResource StatusText}"/>
+                            <DataGridTextColumn Header="Given on" Binding="{Binding GivenText}" Width="100"/>
+                            <DataGridTextColumn Header="Batch" Binding="{Binding BatchNumber}" Width="110"/>
+                            <DataGridTextColumn Header="Not arrived" Binding="{Binding NotArrived}" Width="85"/>
+                            <DataGridTextColumn Header="Protocol" Binding="{Binding Protocol}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Vaccination History">
+                <DataGrid Margin="0,8,0,0" ItemsSource="{Binding P.History}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Record" Binding="{Binding RecordNo}" Width="95"/>
+                        <DataGridTextColumn Header="Date" Binding="{Binding DateText}" Width="95"/>
+                        <DataGridTextColumn Header="Time" Binding="{Binding TimeText}" Width="80"/>
+                        <DataGridTextColumn Header="Vaccine" Binding="{Binding Vaccine}" Width="120"/>
+                        <DataGridTextColumn Header="Dose" Binding="{Binding Dose}" Width="130"/>
+                        <DataGridTextColumn Header="Volume" Binding="{Binding Volume}" Width="80"/>
+                        <DataGridTextColumn Header="Route" Binding="{Binding Route}" Width="60"/>
+                        <DataGridTextColumn Header="Site" Binding="{Binding Site}" Width="120"/>
+                        <DataGridTextColumn Header="Batch" Binding="{Binding Batch}" Width="100"/>
+                        <DataGridTextColumn Header="By" Binding="{Binding AdministeredBy}" Width="*"/>
+                        <DataGridCheckBoxColumn Header="Old card" Binding="{Binding Historical}" Width="70"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Missed Doses">
+                <DataGrid Margin="0,8,0,0" ItemsSource="{Binding P.Missed}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Due date" Binding="{Binding DueText}" Width="110"/>
+                        <DataGridTextColumn Header="Vaccine" Binding="{Binding Vaccine}" Width="150"/>
+                        <DataGridTextColumn Header="Dose" Binding="{Binding DoseLabel}" Width="170"/>
+                        <DataGridTextColumn Header="Not arrived" Binding="{Binding NotArrived}" Width="100"/>
+                        <DataGridTextColumn Header="Protocol" Binding="{Binding Protocol}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Anti-Rabies">
+                <DataGrid Margin="0,8,0,0" ItemsSource="{Binding P.RabiesCases}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Case" Binding="{Binding CaseNo}" Width="90"/>
+                        <DataGridTextColumn Header="Bite date" Binding="{Binding BiteText}" Width="100"/>
+                        <DataGridTextColumn Header="Animal" Binding="{Binding Animal}" Width="90"/>
+                        <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="100"/>
+                        <DataGridTextColumn Header="Doses" Binding="{Binding Progress}" Width="70"/>
+                        <DataGridTextColumn Header="Next due" Binding="{Binding NextText}" Width="100"/>
+                        <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="170"/>
+                        <DataGridTextColumn Header="Protocol" Binding="{Binding Protocol}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Insulin History">
+                <DataGrid Margin="0,8,0,0" ItemsSource="{Binding P.Insulin}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Receipt" Binding="{Binding TransactionNo}" Width="100"/>
+                        <DataGridTextColumn Header="Date" Binding="{Binding DateText}" Width="95"/>
+                        <DataGridTextColumn Header="Insulin" Binding="{Binding Product}" Width="2*"/>
+                        <DataGridTextColumn Header="Batch" Binding="{Binding Batch}" Width="100"/>
+                        <DataGridTextColumn Header="Vials" Binding="{Binding Vials}" Width="55"/>
+                        <DataGridTextColumn Header="Amount" Binding="{Binding TotalText}" Width="90"/>
+                        <DataGridTextColumn Header="Doctor" Binding="{Binding Doctor}" Width="*"/>
+                        <DataGridTextColumn Header="Prescribed dosage" Binding="{Binding Dosage}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Personal Information">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <Border Style="{StaticResource Card}" Margin="0,8,0,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="190"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.Resources>
+                                <Style TargetType="TextBlock"><Setter Property="Margin" Value="0,4"/><Setter Property="TextWrapping" Value="Wrap"/></Style>
+                            </Grid.Resources>
+                            <TextBlock Grid.Row="0" Text="Patient ID" FontWeight="SemiBold"/><TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding P.Patient.PatientNo}"/>
+                            <TextBlock Grid.Row="1" Text="Name" FontWeight="SemiBold"/><TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding P.Patient.Name}"/>
+                            <TextBlock Grid.Row="2" Text="Father / Husband" FontWeight="SemiBold"/><TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding P.Patient.GuardianName}"/>
+                            <TextBlock Grid.Row="3" Text="Age" FontWeight="SemiBold"/><TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding P.AgeText}"/>
+                            <TextBlock Grid.Row="4" Text="Date of birth" FontWeight="SemiBold"/><TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding DobText}"/>
+                            <TextBlock Grid.Row="5" Text="Gender" FontWeight="SemiBold"/><TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding P.Patient.Gender}"/>
+                            <TextBlock Grid.Row="6" Text="CNIC" FontWeight="SemiBold"/><TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding P.Patient.Cnic}"/>
+                            <TextBlock Grid.Row="7" Text="Mobile / Alternative" FontWeight="SemiBold"/>
+                            <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal"><TextBlock Text="{Binding P.Patient.Mobile}"/><TextBlock Text="   "/><TextBlock Text="{Binding P.Patient.AlternativeMobile}"/></StackPanel>
+                            <TextBlock Grid.Row="8" Text="Address" FontWeight="SemiBold"/><TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding P.Patient.Address}"/>
+                            <TextBlock Grid.Row="9" Text="Advised by" FontWeight="SemiBold"/><TextBlock Grid.Row="9" Grid.Column="1" Text="{Binding P.DoctorName}"/>
+                            <TextBlock Grid.Row="10" Text="Category" FontWeight="SemiBold"/><TextBlock Grid.Row="10" Grid.Column="1" Text="{Binding CategoryText}"/>
+                            <TextBlock Grid.Row="11" Text="Registered" FontWeight="SemiBold"/><TextBlock Grid.Row="11" Grid.Column="1" Text="{Binding RegisteredText}"/>
+                            <TextBlock Grid.Row="12" Text="Remarks" FontWeight="SemiBold"/><TextBlock Grid.Row="12" Grid.Column="1" Text="{Binding P.Patient.Remarks}"/>
+                            <TextBlock Grid.Row="13" Text="Previous visits" FontWeight="SemiBold"/><TextBlock Grid.Row="13" Grid.Column="1" Text="{Binding Visits}"/>
+                        </Grid>
+                    </Border>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="Printed Documents">
+                <DataGrid Margin="0,8,0,0" ItemsSource="{Binding P.Prints}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Printed at" Binding="{Binding AtText}" Width="170"/>
+                        <DataGridTextColumn Header="Document" Binding="{Binding Document}" Width="*"/>
+                        <DataGridTextColumn Header="By" Binding="{Binding Username}" Width="150"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

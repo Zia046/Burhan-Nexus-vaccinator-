@@ -1,0 +1,104 @@
+<UserControl x:Class="BurhanNexus.Vaccinator.Desktop.Views.ShellView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:BurhanNexus.Vaccinator.Desktop.ViewModels"
+             xmlns:v="clr-namespace:BurhanNexus.Vaccinator.Desktop.Views">
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type vm:HomeViewModel}"><v:HomeView/></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DashboardViewModel}"><v:DashboardView/></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:PatientEntryViewModel}"><v:PatientEntryView/></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:PatientSearchViewModel}"><v:PatientSearchView/></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:PatientProfileViewModel}"><v:PatientProfileView/></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:NewbornViewModel}"><v:NewbornView/></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ScheduleCheckViewModel}"><v:ScheduleCheckView/></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:VaccinesViewModel}"><v:VaccinesView/></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:RabiesViewModel}"><v:RabiesView/></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:InsulinViewModel}"><v:InsulinView/></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:TodayViewModel}"><v:TodayView/></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AppointmentsViewModel}"><v:AppointmentsView/></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:HistoryViewModel}"><v:HistoryView/></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DoctorsViewModel}"><v:DoctorsView/></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:InventoryViewModel}"><v:InventoryView/></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ReportsViewModel}"><v:ReportsView/></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:PrintCardViewModel}"><v:PrintCardView/></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SettingsViewModel}"><v:SettingsView/></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AdministerViewModel}"><v:AdministerView/></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ProtocolEditorViewModel}"><v:ProtocolEditorView/></DataTemplate>
+    </UserControl.Resources>
+    <DockPanel>
+        <!-- ===== Horizontal top toolbar ===== -->
+        <Border DockPanel.Dock="Top" Background="{StaticResource Banner}" Padding="14,8">
+            <DockPanel LastChildFill="False">
+                <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" Margin="0,0,18,0">
+                    <Image Source="pack://application:,,,/Assets/icon-256.png" Width="42" Height="42" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    <StackPanel Margin="10,0,0,0" VerticalAlignment="Center">
+                        <TextBlock Text="BURHAN NEXUS VACCINATOR" Foreground="White" FontSize="17" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding CenterName}" Foreground="#BFF3EC" FontSize="12" TextTrimming="CharacterEllipsis" MaxWidth="360"/>
+                    </StackPanel>
+                </StackPanel>
+                <WrapPanel DockPanel.Dock="Left" VerticalAlignment="Center">
+                    <Button Style="{StaticResource ToolbarButton}" Command="{Binding HomeCommand}" ToolTip="Home screen">
+                        <StackPanel Orientation="Horizontal"><TextBlock Style="{StaticResource Icon}" Text="&#xE80F;" Margin="0,0,6,0"/><TextBlock Text="Home"/></StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource ToolbarButton}" Command="{Binding DashboardCommand}" ToolTip="Dashboard">
+                        <StackPanel Orientation="Horizontal"><TextBlock Style="{StaticResource Icon}" Text="&#xE9D2;" Margin="0,0,6,0"/><TextBlock Text="Dashboard"/></StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource ToolbarButton}" Command="{Binding BackCommand}" ToolTip="Back to the previous screen">
+                        <StackPanel Orientation="Horizontal"><TextBlock Style="{StaticResource Icon}" Text="&#xE72B;" Margin="0,0,6,0"/><TextBlock Text="Back"/></StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource ToolbarButton}" Command="{Binding NewPatientCommand}" ToolTip="New patient entry">
+                        <StackPanel Orientation="Horizontal"><TextBlock Style="{StaticResource Icon}" Text="&#xE8FA;" Margin="0,0,6,0"/><TextBlock Text="New Patient"/></StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource ToolbarButton}" Command="{Binding SearchCommand}" ToolTip="Search old patient">
+                        <StackPanel Orientation="Horizontal"><TextBlock Style="{StaticResource Icon}" Text="&#xE721;" Margin="0,0,6,0"/><TextBlock Text="Search"/></StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource ToolbarButton}" Command="{Binding RefreshCommand}" ToolTip="Reload this screen">
+                        <StackPanel Orientation="Horizontal"><TextBlock Style="{StaticResource Icon}" Text="&#xE72C;" Margin="0,0,6,0"/><TextBlock Text="Refresh"/></StackPanel>
+                    </Button>
+                </WrapPanel>
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                    <StackPanel VerticalAlignment="Center" Margin="0,0,10,0">
+                        <TextBlock Text="{Binding UserLine}" Foreground="White" FontWeight="SemiBold" HorizontalAlignment="Right"/>
+                        <TextBlock Text="{Binding Now}" Foreground="#BFF3EC" FontSize="11" HorizontalAlignment="Right"/>
+                    </StackPanel>
+                    <Button Style="{StaticResource ToolbarButton}" Command="{Binding SettingsCommand}" ToolTip="Settings">
+                        <TextBlock Style="{StaticResource Icon}" Text="&#xE713;" FontSize="16"/>
+                    </Button>
+                    <Button Style="{StaticResource ToolbarButton}" Command="{Binding LogoutCommand}" ToolTip="Sign out">
+                        <StackPanel Orientation="Horizontal"><TextBlock Style="{StaticResource Icon}" Text="&#xF3B1;" Margin="0,0,6,0"/><TextBlock Text="Sign out"/></StackPanel>
+                    </Button>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <!-- ===== Bottom status bar ===== -->
+        <Border DockPanel.Dock="Bottom" Background="White" BorderBrush="#E2E8F0" BorderThickness="0,1,0,0" Padding="14,6">
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Right" Text="{Binding Version}" Foreground="#94A3B8" FontSize="12" VerticalAlignment="Center" Margin="12,0,0,0"/>
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource Icon}" Text="&#xE787;" Foreground="#159C91" Margin="0,0,6,0"/>
+                    <TextBlock Text="{Binding Now}" FontSize="12" Foreground="#334155"/>
+                    <TextBlock Text="   |   " Foreground="#CBD5E1"/>
+                    <TextBlock Style="{StaticResource Icon}" Text="&#xE77B;" Foreground="#159C91" Margin="0,0,6,0"/>
+                    <TextBlock Text="{Binding UserLine}" FontSize="12" Foreground="#334155"/>
+                    <TextBlock Text="   |   " Foreground="#CBD5E1"/>
+                    <TextBlock Text="{Binding CenterName}" FontSize="12" Foreground="#334155" TextTrimming="CharacterEllipsis" MaxWidth="280"/>
+                </StackPanel>
+                <TextBlock Text="{Binding DeveloperLine}" FontSize="12.5" FontWeight="SemiBold" Foreground="#123B50" HorizontalAlignment="Center" VerticalAlignment="Center"
+                           TextTrimming="CharacterEllipsis"/>
+            </DockPanel>
+        </Border>
+
+        <!-- ===== Page title ===== -->
+        <Border DockPanel.Dock="Top" Background="#CCFFFFFF" BorderBrush="#E2E8F0" BorderThickness="0,0,0,1" Padding="22,9">
+            <DockPanel>
+                <Image DockPanel.Dock="Right" Source="{Binding CenterLogo}" Height="30" MaxWidth="120" Stretch="Uniform"
+                       Visibility="{Binding CenterLogo, Converter={x:Static v:NullToCollapsed.Instance}}"/>
+                <TextBlock Text="{Binding Title}" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource Navy}" VerticalAlignment="Center"/>
+            </DockPanel>
+        </Border>
+
+        <!-- ===== Main working area ===== -->
+        <ContentControl Content="{Binding Page}" Margin="18,14,18,10" Focusable="False"/>
+    </DockPanel>
+</UserControl>

@@ -1,0 +1,46 @@
+<UserControl x:Class="BurhanNexus.Vaccinator.Desktop.Views.ProtocolEditorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:BurhanNexus.Vaccinator.Desktop.ViewModels">
+    <Grid>
+        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+        <Border Style="{StaticResource Card}">
+            <WrapPanel>
+                <StackPanel Style="{StaticResource WideField}"><TextBlock Text="Protocol name" Style="{StaticResource Label}"/><TextBox Text="{Binding Protocol.Name}"/></StackPanel>
+                <StackPanel Style="{StaticResource Field}"><TextBlock Text="Target group" Style="{StaticResource Label}"/><TextBox Text="{Binding Protocol.TargetGroup}"/></StackPanel>
+                <StackPanel Style="{StaticResource Field}"><TextBlock Text="Type" Style="{StaticResource Label}"/>
+                    <ComboBox Style="{StaticResource FieldCombo}" ItemsSource="{x:Static vm:Lists.Kinds}" SelectedItem="{Binding Protocol.Kind}"/></StackPanel>
+                <StackPanel Style="{StaticResource Field}"><TextBlock Text="Dates calculated from" Style="{StaticResource Label}"/>
+                    <ComboBox Style="{StaticResource FieldCombo}" ItemsSource="{x:Static vm:Lists.Anchors}" SelectedItem="{Binding Protocol.Anchor}"/></StackPanel>
+                <StackPanel Style="{StaticResource Field}"><TextBlock Text="Flag for review if a dose is late by (days)" Style="{StaticResource Label}"/><TextBox Text="{Binding ReviewDays}"/></StackPanel>
+                <StackPanel Style="{StaticResource WideField}"><TextBlock Text="Missed-dose / catch-up rule" Style="{StaticResource Label}"/><TextBox Text="{Binding Protocol.CatchUpRule}" TextWrapping="Wrap"/></StackPanel>
+                <StackPanel Style="{StaticResource WideField}"><TextBlock Text="Warnings shown when used" Style="{StaticResource Label}"/><TextBox Text="{Binding Protocol.Warnings}" TextWrapping="Wrap"/></StackPanel>
+                <StackPanel Style="{StaticResource WideField}"><TextBlock Text="Reference / source (required for medical safety)" Style="{StaticResource Label}"/><TextBox Text="{Binding Protocol.Reference}" TextWrapping="Wrap"/></StackPanel>
+            </WrapPanel>
+        </Border>
+        <Border Grid.Row="1" Style="{StaticResource Note}">
+            <TextBlock TextWrapping="Wrap" Foreground="#92400E"
+                       Text="Offset = time from the anchor (date of birth or first dose) to the dose. Min interval = minimum time after the previous dose (leave empty to use the difference of offsets). A dose with offset 0 and a min interval is simply 'X after the previous dose'. Saving a changed schedule withdraws the center approval."/>
+        </Border>
+        <DataGrid Grid.Row="2" ItemsSource="{Binding Doses}" SelectedItem="{Binding SelectedDose}" AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="Column">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Dose #" Binding="{Binding DoseNumber}" Width="65"/>
+                <DataGridTextColumn Header="Label" Binding="{Binding Label}" Width="2*"/>
+                <DataGridTextColumn Header="Offset" Binding="{Binding OffsetValue}" Width="65"/>
+                <DataGridComboBoxColumn Header="Offset unit" SelectedItemBinding="{Binding OffsetUnit}" ItemsSource="{x:Static vm:Lists.Units}" Width="100"/>
+                <DataGridTextColumn Header="Min interval" Binding="{Binding MinInterval}" Width="90"/>
+                <DataGridComboBoxColumn Header="Interval unit" SelectedItemBinding="{Binding MinUnit}" ItemsSource="{x:Static vm:Lists.Units}" Width="100"/>
+                <DataGridTextColumn Header="Volume" Binding="{Binding Volume}" Width="*"/>
+                <DataGridComboBoxColumn Header="Route" SelectedItemBinding="{Binding Route}" ItemsSource="{x:Static vm:Lists.Routes}" Width="80"/>
+                <DataGridTextColumn Header="Site" Binding="{Binding Site}" Width="*"/>
+                <DataGridCheckBoxColumn Header="Booster" Binding="{Binding Booster}" Width="65"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <WrapPanel Grid.Row="3" Margin="0,10,0,0">
+            <Button Content="Add Dose" Command="{Binding AddDoseCommand}" Style="{StaticResource Small}" Background="#6B91B5"/>
+            <Button Content="Remove Selected Dose" Command="{Binding RemoveDoseCommand}" Style="{StaticResource Small}" Background="#64748B"/>
+            <CheckBox Content="Active" IsChecked="{Binding Protocol.IsActive}" Margin="10,0,16,0" VerticalAlignment="Center"/>
+            <Button Content="Save Protocol" Command="{Binding SaveCommand}" Style="{StaticResource Small}"/>
+        </WrapPanel>
+    </Grid>
+</UserControl>

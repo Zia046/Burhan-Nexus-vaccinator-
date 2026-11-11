@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>BurhanNexus.Vaccinator</AssemblyName>
+    <RootNamespace>BurhanNexus.Vaccinator.Desktop</RootNamespace>
+    <ApplicationIcon>..\..\assets\app.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BurhanNexus.Vaccinator.Application\BurhanNexus.Vaccinator.Application.csproj" />
+    <ProjectReference Include="..\BurhanNexus.Vaccinator.Reporting\BurhanNexus.Vaccinator.Reporting.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="..\..\assets\app.ico" Link="Assets\app.ico" />
+    <Resource Include="..\..\assets\icon-256.png" Link="Assets\icon-256.png" />
+    <Resource Include="..\..\assets\burhan-nexus-logo.png" Link="Assets\burhan-nexus-logo.png" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,80 @@
+<UserControl x:Class="BurhanNexus.Vaccinator.Desktop.Views.PatientEntryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:BurhanNexus.Vaccinator.Desktop.ViewModels">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel MaxWidth="980" HorizontalAlignment="Left">
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Text="Patient details" Style="{StaticResource Section}"/>
+                    <WrapPanel>
+                        <StackPanel Style="{StaticResource Field}">
+                            <TextBlock Text="Patient ID" Style="{StaticResource Label}"/>
+                            <TextBox Text="{Binding PatientNo, Mode=OneWay}" IsReadOnly="True" Background="#F1F5F8"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource Field}">
+                            <TextBlock Text="Patient Name *" Style="{StaticResource Label}"/>
+                            <TextBox Text="{Binding Name}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource Field}">
+                            <TextBlock Text="Husband / Father Name" Style="{StaticResource Label}"/>
+                            <TextBox Text="{Binding Guardian}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource Field}">
+                            <TextBlock Text="Date of Birth" Style="{StaticResource Label}"/>
+                            <DatePicker SelectedDate="{Binding DateOfBirth}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource Field}">
+                            <TextBlock Text="Age (years) – if date of birth unknown" Style="{StaticResource Label}"/>
+                            <TextBox Text="{Binding Age}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource Field}">
+                            <TextBlock Text="Gender *" Style="{StaticResource Label}"/>
+                            <ComboBox Style="{StaticResource FieldCombo}" ItemsSource="{x:Static vm:Lists.Genders}" SelectedItem="{Binding Gender}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource Field}">
+                            <TextBlock Text="CNIC Number (optional)" Style="{StaticResource Label}"/>
+                            <TextBox Text="{Binding Cnic}" ToolTip="13 digits. Leave empty for newborns or patients without CNIC."/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource Field}">
+                            <TextBlock Text="Mobile Number" Style="{StaticResource Label}"/>
+                            <TextBox Text="{Binding Mobile}" ToolTip="03XXXXXXXXX"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource Field}">
+                            <TextBlock Text="Alternative Contact Number" Style="{StaticResource Label}"/>
+                            <TextBox Text="{Binding AltMobile}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource Field}">
+                            <TextBlock Text="Advised By (Doctor) – type or choose" Style="{StaticResource Label}"/>
+                            <ComboBox Style="{StaticResource FieldCombo}" IsEditable="True" IsTextSearchEnabled="True" ItemsSource="{Binding DoctorNames}"
+                                      Text="{Binding AdvisedBy, UpdateSourceTrigger=PropertyChanged}"
+                                      ToolTip="A new name is saved in the Doctor Directory automatically."/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource Field}">
+                            <TextBlock Text="Registration Date" Style="{StaticResource Label}"/>
+                            <DatePicker SelectedDate="{Binding RegistrationDate}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource Field}">
+                            <TextBlock Text="Patient Category" Style="{StaticResource Label}"/>
+                            <ComboBox Style="{StaticResource FieldCombo}" ItemsSource="{x:Static vm:Lists.Categories}" SelectedItem="{Binding Category}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource WideField}">
+                            <TextBlock Text="Complete Address" Style="{StaticResource Label}"/>
+                            <TextBox Text="{Binding Address}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource Field}">
+                            <TextBlock Text="Remarks" Style="{StaticResource Label}"/>
+                            <TextBox Text="{Binding Remarks}"/>
+                        </StackPanel>
+                    </WrapPanel>
+                    <TextBlock Text="{Binding AgeText}" Foreground="{StaticResource Primary}" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                    <CheckBox Content="Immunocompromised – flag this patient for clinical review" IsChecked="{Binding Immunocompromised}"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                        <Button Content="Save Patient" Command="{Binding SaveCommand}" IsDefault="True" MinWidth="150" Margin="0,0,8,0"/>
+                        <Button Content="Clear" Command="{Binding ClearCommand}" Style="{StaticResource Secondary}" MinWidth="100"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

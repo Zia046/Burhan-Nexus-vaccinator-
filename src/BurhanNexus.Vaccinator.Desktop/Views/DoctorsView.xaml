@@ -1,0 +1,41 @@
+<UserControl x:Class="BurhanNexus.Vaccinator.Desktop.Views.DoctorsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="14"/><ColumnDefinition Width="330"/></Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+            <DockPanel Margin="0,0,0,8">
+                <Button DockPanel.Dock="Right" Content="Search" Command="{Binding SearchCommand}" Margin="8,0,0,0"/>
+                <TextBox Text="{Binding Search}" Margin="0" VerticalAlignment="Center">
+                    <TextBox.InputBindings><KeyBinding Key="Enter" Command="{Binding SearchCommand}"/></TextBox.InputBindings>
+                </TextBox>
+            </DockPanel>
+            <DataGrid Grid.Row="1" ItemsSource="{Binding Rows}" SelectedItem="{Binding Selected}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" HeadersVisibility="Column">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Doctor" Binding="{Binding Name}" Width="2*"/>
+                    <DataGridTextColumn Header="Specialization" Binding="{Binding Specialization}" Width="*"/>
+                    <DataGridTextColumn Header="Hospital / Clinic" Binding="{Binding Hospital}" Width="*"/>
+                    <DataGridTextColumn Header="Contact" Binding="{Binding ContactNumber}" Width="120"/>
+                    <DataGridTextColumn Header="Patients" Binding="{Binding Patients}" Width="75"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Border Grid.Column="2" Style="{StaticResource Card}" VerticalAlignment="Top">
+            <StackPanel>
+                <TextBlock Text="Add / edit doctor" Style="{StaticResource Section}"/>
+                <TextBlock Text="Doctor name *" Style="{StaticResource Label}"/><TextBox Text="{Binding EditName}"/>
+                <TextBlock Text="Specialization" Style="{StaticResource Label}"/><TextBox Text="{Binding EditSpecialization}"/>
+                <TextBlock Text="Hospital / Clinic" Style="{StaticResource Label}"/><TextBox Text="{Binding EditHospital}"/>
+                <TextBlock Text="Contact number" Style="{StaticResource Label}"/><TextBox Text="{Binding EditContact}"/>
+                <WrapPanel>
+                    <Button Content="Save" Command="{Binding SaveCommand}" Style="{StaticResource Small}"/>
+                    <Button Content="New" Command="{Binding NewCommand}" Style="{StaticResource Small}" Background="#6B91B5"/>
+                    <Button Content="Delete" Command="{Binding DeleteCommand}" Style="{StaticResource Small}" Background="#B91C1C"
+                            Visibility="{Binding CanDelete, Converter={StaticResource BoolToVis}}"/>
+                </WrapPanel>
+                <TextBlock Text="New names typed in 'Advised By' are saved here automatically. Only the administrator can delete doctors." Style="{StaticResource SubTitle}" Margin="0,10,0,0" FontSize="11.5"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

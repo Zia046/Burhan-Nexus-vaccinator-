@@ -1,0 +1,34 @@
+BURHAN NEXUS VACCINATOR - END USER LICENCE AGREEMENT (EULA)
+Proprietary Software, Copyright (c) 2026 Burhan Nexus
+
+Developer / Licensor: Burhan Nexus
+Mobile: 03475093446
+Email:  ziaullah.046@gmail.com
+
+1. LICENCE GRANT
+   Burhan Nexus grants you a non-exclusive, non-transferable licence to install and
+   use the Software for the internal operation of your hospital, clinic or
+   vaccination center.
+
+2. RESTRICTIONS
+   You may not copy, resell, rent, reverse-engineer, decompile or modify the
+   Software, or remove the Burhan Nexus branding, except where the law allows it.
+
+3. MEDICAL DISCLAIMER
+   The Software is a record-management and scheduling tool. It does NOT diagnose,
+   prescribe, decide exposure categories or calculate medicine doses. Vaccine
+   schedules are produced from protocols that must be reviewed and approved by the
+   center's qualified medical officer. Clinical decisions always remain the
+   responsibility of authorised healthcare professionals.
+
+4. DATA
+   All data is stored locally on your computer. You are responsible for regular
+   backups and for protecting patient information in line with applicable law.
+
+5. NO WARRANTY / LIMITATION OF LIABILITY
+   The Software is provided "as is". To the extent permitted by law, Burhan Nexus
+   is not liable for any indirect or consequential loss arising from its use.
+
+6. THIRD-PARTY COMPONENTS
+   Open-source components are listed in THIRD-PARTY-NOTICES.txt and remain under
+   their own licences.

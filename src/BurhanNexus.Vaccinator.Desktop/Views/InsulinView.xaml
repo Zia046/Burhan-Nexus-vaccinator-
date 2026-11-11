@@ -1,0 +1,156 @@
+<UserControl x:Class="BurhanNexus.Vaccinator.Desktop.Views.InsulinView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:v="clr-namespace:BurhanNexus.Vaccinator.Desktop.Views">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top">
+            <Border Style="{StaticResource Note}">
+                <TextBlock Text="{Binding Notice}" TextWrapping="Wrap" Foreground="#92400E"/>
+            </Border>
+            <Border Style="{StaticResource Alert}" Visibility="{Binding Alerts, Converter={x:Static v:NullToCollapsed.Instance}}">
+                <TextBlock Text="{Binding Alerts}" TextWrapping="Wrap" Foreground="#991B1B" FontWeight="SemiBold"/>
+            </Border>
+        </StackPanel>
+        <TabControl Background="Transparent" BorderThickness="0">
+            <TabItem Header="Issue Insulin">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="0,8,0,0">
+                    <StackPanel MaxWidth="1000" HorizontalAlignment="Left">
+                        <Border Style="{StaticResource Card}">
+                            <StackPanel>
+                                <TextBlock Text="Patient" Style="{StaticResource Section}"/>
+                                <DockPanel Margin="0,0,0,6">
+                                    <Button DockPanel.Dock="Right" Content="New Patient" Command="{Binding NewPatientCommand}" Style="{StaticResource Small}" Background="#6B91B5"/>
+                                    <Button DockPanel.Dock="Right" Content="Find" Command="{Binding FindCommand}" Style="{StaticResource Small}"/>
+                                    <TextBox Text="{Binding FindText}" Margin="0,0,8,0" ToolTip="Name, patient ID, CNIC or mobile">
+                                        <TextBox.InputBindings><KeyBinding Key="Enter" Command="{Binding FindCommand}"/></TextBox.InputBindings>
+                                    </TextBox>
+                                </DockPanel>
+                                <TextBlock Text="{Binding PatientText}" FontWeight="SemiBold" Foreground="{StaticResource Primary}"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Style="{StaticResource Card}">
+                            <StackPanel>
+                                <TextBlock Text="Insulin issued" Style="{StaticResource Section}"/>
+                                <WrapPanel>
+                                    <StackPanel Style="{StaticResource WideField}"><TextBlock Text="Insulin (brand · type · strength · vial)" Style="{StaticResource Label}"/>
+                                        <ComboBox Style="{StaticResource FieldCombo}" ItemsSource="{Binding Products}" SelectedItem="{Binding Product}" DisplayMemberPath="Display"/></StackPanel>
+                                    <StackPanel Style="{StaticResource Field}"><TextBlock Text="Batch (valid stock only)" Style="{StaticResource Label}"/>
+                                        <ComboBox Style="{StaticResource FieldCombo}" ItemsSource="{Binding IssueBatches}" SelectedItem="{Binding Batch}" DisplayMemberPath="Display"/></StackPanel>
+                                    <StackPanel Style="{StaticResource Field}"><TextBlock Text="Number of vials" Style="{StaticResource Label}"/><TextBox Text="{Binding Vials, UpdateSourceTrigger=PropertyChanged}"/></StackPanel>
+                                    <StackPanel Style="{StaticResource Field}"><TextBlock Text="Unit price (Rs)" Style="{StaticResource Label}"/><TextBox Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}"/></StackPanel>
+                                    <StackPanel Style="{StaticResource Field}"><TextBlock Text="Issue date" Style="{StaticResource Label}"/><DatePicker SelectedDate="{Binding IssueDate}"/></StackPanel>
+                                    <StackPanel Style="{StaticResource Field}"><TextBlock Text="Prescribing doctor" Style="{StaticResource Label}"/>
+                                        <ComboBox Style="{StaticResource FieldCombo}" IsEditable="True" ItemsSource="{Binding DoctorNames}" Text="{Binding Doctor, UpdateSourceTrigger=PropertyChanged}"/></StackPanel>
+                                    <StackPanel Style="{StaticResource WideField}"><TextBlock Text="Prescribed dosage – exactly as written by the prescriber" Style="{StaticResource Label}"/><TextBox Text="{Binding Dosage}"/></StackPanel>
+                                    <StackPanel Style="{StaticResource WideField}"><TextBlock Text="Remarks" Style="{StaticResource Label}"/><TextBox Text="{Binding Remarks}"/></StackPanel>
+                                </WrapPanel>
+                                <TextBlock Text="{Binding Total}" FontSize="16" FontWeight="SemiBold" Foreground="{StaticResource Navy}" Margin="0,0,0,10"/>
+                                <Button Content="Issue Insulin &amp; Update Stock" Command="{Binding IssueCommand}" HorizontalAlignment="Left" Background="#7C3AED"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="Stock &amp; Products">
+                <Grid Margin="0,8,0,0">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="14"/><ColumnDefinition Width="340"/></Grid.ColumnDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                        <WrapPanel Margin="0,0,0,6">
+                            <Button Content="Wastage / Disposal" Command="{Binding WastageCommand}" Style="{StaticResource Small}" Background="#B91C1C"/>
+                            <Button Content="Print Stock Report" Command="{Binding StockReportCommand}" Style="{StaticResource Small}" Background="#334155"/>
+                        </WrapPanel>
+                        <DataGrid Grid.Row="1" ItemsSource="{Binding Batches}" SelectedItem="{Binding SelectedBatch}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column" SelectionMode="Single">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Insulin" Binding="{Binding Product}" Width="2*"/>
+                                <DataGridTextColumn Header="Batch" Binding="{Binding BatchNumber}" Width="*"/>
+                                <DataGridTextColumn Header="Expiry" Binding="{Binding ExpiryText}" Width="95"/>
+                                <DataGridTextColumn Header="Received" Binding="{Binding Received}" Width="70"/>
+                                <DataGridTextColumn Header="Available" Binding="{Binding Available}" Width="75"/>
+                                <DataGridTextColumn Header="Location" Binding="{Binding Location}" Width="*"/>
+                                <DataGridTextColumn Header="Temp °C" Binding="{Binding TemperatureC}" Width="65"/>
+                                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="110" ElementStyle="{StaticResource StatusText}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <TextBlock Grid.Row="3" Text="Products (click to edit)" Style="{StaticResource Section}" Margin="0,10,0,6"/>
+                        <DataGrid Grid.Row="4" ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column" SelectionMode="Single">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Brand" Binding="{Binding Brand}" Width="*"/>
+                                <DataGridTextColumn Header="Type" Binding="{Binding InsulinType}" Width="*"/>
+                                <DataGridTextColumn Header="Strength" Binding="{Binding Strength}" Width="90"/>
+                                <DataGridTextColumn Header="Vial" Binding="{Binding VialSize}" Width="80"/>
+                                <DataGridTextColumn Header="Price" Binding="{Binding PriceText}" Width="80"/>
+                                <DataGridTextColumn Header="In stock" Binding="{Binding Available}" Width="70"/>
+                                <DataGridTextColumn Header="Low level" Binding="{Binding LowStockLevel}" Width="70"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                    <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <Border Style="{StaticResource Card}">
+                                <StackPanel>
+                                    <TextBlock Text="Stock in (receive vials)" Style="{StaticResource Section}"/>
+                                    <TextBlock Text="Insulin product" Style="{StaticResource Label}"/>
+                                    <ComboBox Style="{StaticResource FieldCombo}" ItemsSource="{Binding Products}" SelectedItem="{Binding StockProduct}" DisplayMemberPath="Display"/>
+                                    <TextBlock Text="Batch number" Style="{StaticResource Label}"/><TextBox Text="{Binding SBatch}"/>
+                                    <TextBlock Text="Manufacturing date (if available)" Style="{StaticResource Label}"/><DatePicker SelectedDate="{Binding SMfg}"/>
+                                    <TextBlock Text="Expiry date" Style="{StaticResource Label}"/><DatePicker SelectedDate="{Binding SExpiry}"/>
+                                    <TextBlock Text="Number of vials" Style="{StaticResource Label}"/><TextBox Text="{Binding SVials}"/>
+                                    <TextBlock Text="Storage location (refrigerator)" Style="{StaticResource Label}"/><TextBox Text="{Binding SLocation}"/>
+                                    <TextBlock Text="Storage temperature °C (cold chain)" Style="{StaticResource Label}"/><TextBox Text="{Binding STemp}"/>
+                                    <Button Content="Add Stock" Command="{Binding StockInCommand}"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Style="{StaticResource Card}">
+                                <StackPanel>
+                                    <TextBlock Text="Product (add / edit)" Style="{StaticResource Section}"/>
+                                    <TextBlock Text="Brand" Style="{StaticResource Label}"/><TextBox Text="{Binding PBrand}"/>
+                                    <TextBlock Text="Insulin type" Style="{StaticResource Label}"/><TextBox Text="{Binding PType}" ToolTip="e.g. Regular, NPH, 70/30, Glargine"/>
+                                    <TextBlock Text="Strength / concentration" Style="{StaticResource Label}"/><TextBox Text="{Binding PStrength}" ToolTip="e.g. 100 IU/mL"/>
+                                    <TextBlock Text="Vial size" Style="{StaticResource Label}"/><TextBox Text="{Binding PVial}" ToolTip="e.g. 10 mL"/>
+                                    <TextBlock Text="Unit price (Rs)" Style="{StaticResource Label}"/><TextBox Text="{Binding PPrice}"/>
+                                    <TextBlock Text="Low-stock alert level (vials)" Style="{StaticResource Label}"/><TextBox Text="{Binding PLow}"/>
+                                    <TextBlock Text="Storage instructions" Style="{StaticResource Label}"/><TextBox Text="{Binding PStorage}"/>
+                                    <WrapPanel>
+                                        <Button Content="Save Product" Command="{Binding SaveProductCommand}" Style="{StaticResource Small}"/>
+                                        <Button Content="New" Command="{Binding NewProductCommand}" Style="{StaticResource Small}" Background="#6B91B5"/>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Dispensing History &amp; Reports">
+                <Grid Margin="0,8,0,0">
+                    <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                    <WrapPanel Margin="0,0,0,8">
+                        <StackPanel Width="140" Margin="0,0,8,0"><TextBlock Text="From" Style="{StaticResource Label}"/><DatePicker SelectedDate="{Binding From}" Margin="0,2,0,0"/></StackPanel>
+                        <StackPanel Width="140" Margin="0,0,8,0"><TextBlock Text="To" Style="{StaticResource Label}"/><DatePicker SelectedDate="{Binding To}" Margin="0,2,0,0"/></StackPanel>
+                        <Button Content="Show" Command="{Binding ShowCommand}" VerticalAlignment="Bottom" Style="{StaticResource Small}"/>
+                        <Button Content="Print Receipt" Command="{Binding ReceiptCommand}" VerticalAlignment="Bottom" Style="{StaticResource Small}" Background="#7C3AED"/>
+                        <Button Content="Daily Report" Command="{Binding DailyCommand}" VerticalAlignment="Bottom" Style="{StaticResource Small}" Background="#334155"/>
+                        <Button Content="Monthly Report" Command="{Binding MonthlyCommand}" VerticalAlignment="Bottom" Style="{StaticResource Small}" Background="#334155"/>
+                        <Button Content="Excel" Command="{Binding ExcelCommand}" VerticalAlignment="Bottom" Style="{StaticResource Small}" Background="#0F766E"/>
+                    </WrapPanel>
+                    <DataGrid Grid.Row="1" ItemsSource="{Binding Transactions}" SelectedItem="{Binding SelectedTx}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column" SelectionMode="Single">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Receipt" Binding="{Binding TransactionNo}" Width="100"/>
+                            <DataGridTextColumn Header="Date" Binding="{Binding DateText}" Width="95"/>
+                            <DataGridTextColumn Header="Patient ID" Binding="{Binding PatientNo}" Width="100"/>
+                            <DataGridTextColumn Header="Patient" Binding="{Binding PatientName}" Width="2*"/>
+                            <DataGridTextColumn Header="Insulin" Binding="{Binding Product}" Width="2*"/>
+                            <DataGridTextColumn Header="Batch" Binding="{Binding Batch}" Width="*"/>
+                            <DataGridTextColumn Header="Vials" Binding="{Binding Vials}" Width="55"/>
+                            <DataGridTextColumn Header="Amount" Binding="{Binding TotalText}" Width="90"/>
+                            <DataGridTextColumn Header="Doctor" Binding="{Binding Doctor}" Width="*"/>
+                            <DataGridTextColumn Header="Prescribed dosage" Binding="{Binding Dosage}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</UserControl>

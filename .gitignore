@@ -1,0 +1,43 @@
+## Build output
+bin/
+obj/
+publish/
+artifacts/
+
+## IDE
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.DotSettings.user
+
+## Test results
+TestResults/
+*.trx
+coverage*/
+
+## Local data and secrets (never commit patient data or credentials)
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.bak
+*.mdf
+*.ldf
+appsettings.Local.json
+*.pfx
+*.snk
+license-private*.xml
+license-private*.pem
+Backups/
+Logs/
+
+## Build output from the Windows build script
+build-log.txt
+private.key
+*.key
+
+# Code-signing certificates
+*.pfx
+*.p12

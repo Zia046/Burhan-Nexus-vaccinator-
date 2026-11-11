@@ -1,0 +1,90 @@
+<UserControl x:Class="BurhanNexus.Vaccinator.Desktop.Views.AdministerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:BurhanNexus.Vaccinator.Desktop.ViewModels"
+             xmlns:v="clr-namespace:BurhanNexus.Vaccinator.Desktop.Views">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel MaxWidth="980" HorizontalAlignment="Left">
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Text="{Binding Patient}" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource Navy}"/>
+                    <WrapPanel Margin="0,6,0,0">
+                        <TextBlock Text="Vaccine: " Foreground="#64748B"/><TextBlock Text="{Binding Vaccine}" FontWeight="SemiBold" Margin="0,0,18,0"/>
+                        <TextBlock Text="Dose: " Foreground="#64748B"/><TextBlock Text="{Binding Dose}" FontWeight="SemiBold" Margin="0,0,18,0"/>
+                        <TextBlock Text="Due: " Foreground="#64748B"/><TextBlock Text="{Binding Due}" FontWeight="SemiBold" Margin="0,0,18,0"/>
+                    </WrapPanel>
+                    <WrapPanel Margin="0,2,0,0">
+                        <TextBlock Text="Protocol: " Foreground="#64748B"/><TextBlock Text="{Binding Protocol}" TextWrapping="Wrap"/>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource Note}" Visibility="{Binding NotApproved, Converter={StaticResource BoolToVis}}">
+                <TextBlock Text="This protocol has not yet been approved by your center's medical officer (Settings → Vaccine Protocols)." TextWrapping="Wrap" Foreground="#92400E"/>
+            </Border>
+            <Border Style="{StaticResource Alert}" Visibility="{Binding Review, Converter={x:Static v:NullToCollapsed.Instance}}">
+                <TextBlock Text="{Binding Review}" TextWrapping="Wrap" Foreground="#991B1B" FontWeight="SemiBold"/>
+            </Border>
+            <Border Style="{StaticResource Note}" Visibility="{Binding Warnings, Converter={x:Static v:NullToCollapsed.Instance}}">
+                <TextBlock Text="{Binding Warnings}" TextWrapping="Wrap" Foreground="#92400E"/>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Text="Administration details" Style="{StaticResource Section}"/>
+                    <CheckBox Content="Old dose from the patient's card (given earlier – no stock is deducted)" IsChecked="{Binding Historical}"/>
+                    <WrapPanel>
+                        <StackPanel Style="{StaticResource Field}">
+                            <TextBlock Text="Administration Date" Style="{StaticResource Label}"/>
+                            <DatePicker SelectedDate="{Binding Date}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource Field}">
+                            <TextBlock Text="Administration Time" Style="{StaticResource Label}"/>
+                            <TextBox Text="{Binding Time}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource Field}">
+                            <TextBlock Text="Dose Volume" Style="{StaticResource Label}"/>
+                            <TextBox Text="{Binding Volume}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource Field}">
+                            <TextBlock Text="Route" Style="{StaticResource Label}"/>
+                            <ComboBox Style="{StaticResource FieldCombo}" ItemsSource="{x:Static vm:Lists.Routes}" SelectedItem="{Binding Route}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource Field}">
+                            <TextBlock Text="Injection Site" Style="{StaticResource Label}"/>
+                            <TextBox Text="{Binding Site}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource Field}">
+                            <TextBlock Text="Administered By" Style="{StaticResource Label}"/>
+                            <TextBox Text="{Binding AdministeredBy}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource WideField}" Visibility="{Binding NotHistorical, Converter={StaticResource BoolToVis}}">
+                            <TextBlock Text="Batch (only valid, non-expired stock is listed)" Style="{StaticResource Label}"/>
+                            <ComboBox Style="{StaticResource FieldCombo}" ItemsSource="{Binding Batches}" SelectedItem="{Binding Batch}" DisplayMemberPath="Display"/>
+                            <TextBlock Text="{Binding BatchExpiry}" Foreground="#64748B" Margin="0,-6,0,8"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource Field}" Visibility="{Binding Historical, Converter={StaticResource BoolToVis}}">
+                            <TextBlock Text="Batch Number (from card)" Style="{StaticResource Label}"/>
+                            <TextBox Text="{Binding ManualBatch}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource Field}" Visibility="{Binding Historical, Converter={StaticResource BoolToVis}}">
+                            <TextBlock Text="Expiry Date (if known)" Style="{StaticResource Label}"/>
+                            <DatePicker SelectedDate="{Binding ManualExpiry}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource WideField}">
+                            <TextBlock Text="Remarks" Style="{StaticResource Label}"/>
+                            <TextBox Text="{Binding Remarks}"/>
+                        </StackPanel>
+                    </WrapPanel>
+                    <Border Style="{StaticResource Alert}" Visibility="{Binding NoBatches, Converter={StaticResource BoolToVis}}">
+                        <TextBlock Text="No usable stock of this vaccine. Add stock in Vaccine Inventory, or tick 'Old dose from card' for a dose given earlier." TextWrapping="Wrap" Foreground="#991B1B"/>
+                    </Border>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Save Vaccination" Command="{Binding SaveCommand}" MinWidth="170" Margin="0,0,8,0"/>
+                        <Button Content="Cancel" Command="{Binding CancelCommand}" Style="{StaticResource Secondary}" MinWidth="100"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

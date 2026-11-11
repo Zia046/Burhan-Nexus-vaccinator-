@@ -1,0 +1,71 @@
+<UserControl x:Class="BurhanNexus.Vaccinator.Desktop.Views.ReportsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.ColumnDefinitions><ColumnDefinition Width="400"/><ColumnDefinition Width="14"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <Border Style="{StaticResource Card}">
+                    <StackPanel>
+                        <TextBlock Text="Daily vaccination report" Style="{StaticResource Section}"/>
+                        <DatePicker SelectedDate="{Binding Day}"/>
+                        <Button Content="Print Daily Report" Command="{Binding DailyCommand}"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource Card}">
+                    <StackPanel>
+                        <TextBlock Text="Monthly vaccination report" Style="{StaticResource Section}"/>
+                        <ComboBox ItemsSource="{Binding Months}" SelectedItem="{Binding Month}" ItemStringFormat="MMMM yyyy" Style="{StaticResource FieldCombo}"/>
+                        <Button Content="Print Monthly Report" Command="{Binding MonthlyCommand}"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource Card}">
+                    <StackPanel>
+                        <TextBlock Text="Any period" Style="{StaticResource Section}"/>
+                        <WrapPanel>
+                            <StackPanel Width="160" Margin="0,0,10,0"><TextBlock Text="From" Style="{StaticResource Label}"/><DatePicker SelectedDate="{Binding From}"/></StackPanel>
+                            <StackPanel Width="160"><TextBlock Text="To" Style="{StaticResource Label}"/><DatePicker SelectedDate="{Binding To}"/></StackPanel>
+                        </WrapPanel>
+                        <WrapPanel>
+                            <Button Content="Print Report" Command="{Binding RangeCommand}" Style="{StaticResource Small}"/>
+                            <Button Content="Export Excel" Command="{Binding ExcelCommand}" Style="{StaticResource Small}" Background="#0F766E"/>
+                        </WrapPanel>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource Card}">
+                    <StackPanel>
+                        <TextBlock Text="Stock reports" Style="{StaticResource Section}"/>
+                        <WrapPanel>
+                            <Button Content="Vaccine Stock Report" Command="{Binding StockCommand}" Style="{StaticResource Small}" Background="#A16207"/>
+                            <Button Content="Insulin Stock Report" Command="{Binding InsulinStockCommand}" Style="{StaticResource Small}" Background="#7C3AED"/>
+                        </WrapPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+            <TextBlock Text="Statistics for the selected month" Style="{StaticResource Section}"/>
+            <DataGrid Grid.Row="1" ItemsSource="{Binding Summary}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Item" Binding="{Binding Label}" Width="*"/>
+                    <DataGridTextColumn Header="Count" Binding="{Binding Value}" Width="100"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <DockPanel Grid.Row="2" Margin="0,12,0,6">
+                <Button DockPanel.Dock="Right" Content="Load Audit Trail" Command="{Binding AuditCommand}" Style="{StaticResource Small}" Background="#334155"/>
+                <TextBlock Text="Audit trail (administrator)" Style="{StaticResource Section}" Margin="0"/>
+            </DockPanel>
+            <DataGrid Grid.Row="3" ItemsSource="{Binding Audit}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column" Style="{StaticResource CompactGrid}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="When" Binding="{Binding AtText}" Width="150"/>
+                    <DataGridTextColumn Header="User" Binding="{Binding Username}" Width="100"/>
+                    <DataGridTextColumn Header="Action" Binding="{Binding Action}" Width="120"/>
+                    <DataGridTextColumn Header="Table" Binding="{Binding Entity}" Width="130"/>
+                    <DataGridTextColumn Header="Record" Binding="{Binding EntityId}" Width="110"/>
+                    <DataGridTextColumn Header="Details" Binding="{Binding Details}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</UserControl>

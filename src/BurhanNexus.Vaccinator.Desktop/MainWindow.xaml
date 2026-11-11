@@ -1,0 +1,16 @@
+<Window x:Class="BurhanNexus.Vaccinator.Desktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:BurhanNexus.Vaccinator.Desktop.ViewModels"
+        xmlns:v="clr-namespace:BurhanNexus.Vaccinator.Desktop.Views"
+        Title="Burhan Nexus Vaccinator" Icon="pack://application:,,,/Assets/app.ico"
+        Width="1280" Height="780" MinWidth="980" MinHeight="620" WindowState="Maximized"
+        WindowStartupLocation="CenterScreen" Background="{StaticResource Surface}"
+        FontFamily="Segoe UI Variable Text, Segoe UI" Foreground="{StaticResource Ink}" TextOptions.TextFormattingMode="Ideal">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:SetupViewModel}"><v:SetupView/></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:LoginViewModel}"><v:LoginView/></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ShellViewModel}"><v:ShellView/></DataTemplate>
+    </Window.Resources>
+    <ContentControl Content="{Binding Current}"/>
+</Window>

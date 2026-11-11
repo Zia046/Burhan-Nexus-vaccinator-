@@ -1,0 +1,37 @@
+<UserControl x:Class="BurhanNexus.Vaccinator.Desktop.Views.TodayView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+        <WrapPanel Margin="0,0,0,8">
+            <Button Content="Record Selected Dose" Command="{Binding GiveCommand}" Style="{StaticResource Small}" Background="#15803D"/>
+            <Button Content="Open Patient" Command="{Binding OpenCommand}" Style="{StaticResource Small}" Background="#123B50"/>
+            <Button Content="Print Daily Report" Command="{Binding PrintCommand}" Style="{StaticResource Small}" Background="#334155"/>
+        </WrapPanel>
+        <TextBlock Grid.Row="1" Text="{Binding DueTitle}" Style="{StaticResource Section}"/>
+        <DataGrid Grid.Row="2" ItemsSource="{Binding Due}" SelectedItem="{Binding Selected}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" HeadersVisibility="Column">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Patient ID" Binding="{Binding PatientNo}" Width="100"/>
+                <DataGridTextColumn Header="Patient" Binding="{Binding PatientName}" Width="2*"/>
+                <DataGridTextColumn Header="Mobile" Binding="{Binding Mobile}" Width="120"/>
+                <DataGridTextColumn Header="Vaccine" Binding="{Binding Vaccine}" Width="130"/>
+                <DataGridTextColumn Header="Dose" Binding="{Binding DoseLabel}" Width="*"/>
+                <DataGridTextColumn Header="Previous dose" Binding="{Binding PreviousText}" Width="110"/>
+                <DataGridTextColumn Header="Note" Binding="{Binding Note}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBlock Grid.Row="3" Text="{Binding GivenTitle}" Style="{StaticResource Section}" Margin="0,12,0,8"/>
+        <DataGrid Grid.Row="4" ItemsSource="{Binding Given}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Time" Binding="{Binding TimeText}" Width="85"/>
+                <DataGridTextColumn Header="Patient ID" Binding="{Binding PatientNo}" Width="100"/>
+                <DataGridTextColumn Header="Patient" Binding="{Binding PatientName}" Width="2*"/>
+                <DataGridTextColumn Header="Vaccine" Binding="{Binding Vaccine}" Width="130"/>
+                <DataGridTextColumn Header="Dose" Binding="{Binding Dose}" Width="*"/>
+                <DataGridTextColumn Header="Route" Binding="{Binding Route}" Width="60"/>
+                <DataGridTextColumn Header="Batch" Binding="{Binding Batch}" Width="110"/>
+                <DataGridTextColumn Header="By" Binding="{Binding AdministeredBy}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>
