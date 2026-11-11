@@ -41,6 +41,25 @@ jobs:
           if-no-files-found: ignore
           retention-days: 14
 
+      - name: Publish the rendered screens to the ui-screens branch (for review)
+        if: always()
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          if (-not (Test-Path ui-screens)) { exit 0 }
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          $tmp = Join-Path $env:RUNNER_TEMP "screens"
+          git worktree add --detach $tmp
+          Push-Location $tmp
+          git checkout --orphan ui-screens-tmp
+          git rm -rf . -q
+          Copy-Item "${{ github.workspace }}\ui-screens\*" . -Recurse
+          git add -A
+          git commit -q -m "UI screens from build ${{ github.run_number }}"
+          git push -f origin HEAD:ui-screens
+          Pop-Location
+
       - name: Publish Windows app (self-contained, single file)
         run: dotnet publish src/BurhanNexus.Vaccinator.Desktop/BurhanNexus.Vaccinator.Desktop.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:EnableCompressionInSingleFile=true -p:Version=1.0.${{ github.run_number }} -p:DebugType=None -p:DebugSymbols=false -o publish
 
