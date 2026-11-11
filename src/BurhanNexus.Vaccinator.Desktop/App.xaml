@@ -268,7 +268,7 @@
         <Style x:Key="Secondary" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
             <Setter Property="Background" Value="#6B91B5"/>
         </Style>
-        <Style x:Key="Danger" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+        <Style x:Key="DangerButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
             <Setter Property="Background" Value="#B91C1C"/>
         </Style>
         <Style x:Key="NavyButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
