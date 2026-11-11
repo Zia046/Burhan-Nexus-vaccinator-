@@ -176,9 +176,16 @@ public class WorkflowTests : IDisposable
         ScheduleService.Reschedule(overdue[0].AppointmentId, Fmt.Today.AddDays(2), "Family request");
         Assert.Contains(ScheduleService.Appointments(AppointmentFilter.Next7Days), a => a.AppointmentId == overdue[0].AppointmentId);
 
+        // Moving dose 1 later also moves dose 2 (minimum 4 weeks after dose 1), so nothing is overdue any more.
+        var doses = ScheduleService.DosesForPatient(pid).OrderBy(d => d.DoseNumber).ToList();
+        Assert.Equal(Fmt.Today.AddDays(2), doses[0].DueDate);
+        Assert.Equal(Fmt.Today.AddDays(30), doses[1].DueDate);
+        Assert.Equal(1, doses[0].NotArrived);
+
         var data = DashboardService.Load();
-        Assert.True(data.TotalPatients >= 1);
-        Assert.True(data.OverdueVaccinations >= 1);
+        Assert.Equal(1, data.TotalPatients);
+        Assert.Equal(0, data.OverdueVaccinations);
+        Assert.Equal(3, data.UpcomingVaccinations);
     }
 
     [Fact]
