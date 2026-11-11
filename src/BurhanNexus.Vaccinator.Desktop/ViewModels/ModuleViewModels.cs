@@ -24,7 +24,7 @@ public sealed class RabiesViewModel : PageViewModel
         DoctorNames = DoctorService.Names();
         var rabies = VaccinationService.Vaccines().FirstOrDefault(v => v.Name == "Rabies");
         Protocols = rabies is null ? new List<ProtocolItem>() : ScheduleService.Protocols(rabies.Id);
-        Protocol = Protocols.FirstOrDefault();
+        // No default protocol: the healthcare professional must choose it.
         if (patientId is int pid)
         {
             Existing = PatientService.Row(pid);

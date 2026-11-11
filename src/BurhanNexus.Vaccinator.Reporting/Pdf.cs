@@ -169,7 +169,7 @@ public static class Pdf
             Grid(col, new[] { "Date", "Vaccine", "Dose", "Route", "Batch", "By" }, new float[] { 70, 0, 80, 40, 75, 90 },
                 extra.Select(h => new[] { h.DateText, h.Vaccine, h.Dose, h.Route, h.Batch, h.AdministeredBy }));
         }
-        Signature(col, p.NextAppointment is { } n ? $"{n.DueText} – {n.Vaccine} {n.DoseLabel}" : null);
+        Signature(col, p.NextAppointment is { } n ? $"{n.DueText} – {n.Title}" : null);
     });
 
     public static byte[] NewbornCard(CenterProfile center, PatientProfile p) => Build(center, "Newborn Immunization Card (EPI)", col =>
@@ -190,7 +190,7 @@ public static class Pdf
                 group.OrderBy(d => d.Vaccine).Select(d => new[] { d.Vaccine, d.DoseLabel, d.DueText, d.GivenText, d.BatchNumber, d.Status }));
         }
         col.Item().PaddingTop(8).Text("Schedule source: Federal Directorate of Immunization (FDI) Pakistan – routine EPI schedule. Bring this card to every visit.").FontSize(8).Italic();
-        Signature(col, p.NextAppointment is { } next ? $"{next.DueText} – {next.Vaccine} {next.DoseLabel}" : null);
+        Signature(col, p.NextAppointment is { } next ? $"{next.DueText} – {next.Title}" : null);
     });
 
     public static byte[] AntiRabiesCard(CenterProfile center, PatientProfile p, AntiRabiesCase c) => Build(center, "Anti-Rabies Vaccination Card", col =>

@@ -23,7 +23,13 @@ public sealed class ScheduleCheckViewModel : PageViewModel
     public VaccineOption? Vaccine
     {
         get => _vaccine;
-        set { Set(ref _vaccine, value); Protocols = value is null ? new() : ScheduleService.Protocols(value.Id); Raise(nameof(Protocols)); Protocol = Protocols.FirstOrDefault(); }
+        set
+        {
+            Set(ref _vaccine, value);
+            Protocols = value is null ? new() : ScheduleService.Protocols(value.Id);
+            Raise(nameof(Protocols));
+            Protocol = Protocols.FirstOrDefault(p => p.Kind != ProtocolKind.ChildhoodEpi) ?? Protocols.FirstOrDefault();
+        }
     }
     public List<ProtocolItem> Protocols { get; private set; } = new();
     public ProtocolItem? Protocol { get => _protocol; set { Set(ref _protocol, value); Calculate(); } }

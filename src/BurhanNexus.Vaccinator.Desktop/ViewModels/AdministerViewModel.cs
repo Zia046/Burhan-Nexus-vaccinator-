@@ -35,7 +35,7 @@ public sealed class AdministerViewModel : PageViewModel
     public string Patient => $"{_d.PatientNo} – {_d.PatientName}";
     public string Vaccine => _d.VaccineName;
     public string Protocol => _d.ProtocolName ?? "(select the protocol on the patient profile)";
-    public string Dose => $"{_d.DoseLabel} (dose {_d.DoseNumber})";
+    public string Dose => _d.DoseLabel == $"Dose {_d.DoseNumber}" ? _d.DoseLabel : $"{_d.DoseLabel} (dose {_d.DoseNumber})";
     public string Due => _d.DueDate is DateOnly d ? Fmt.D(d) : "First dose – today starts the schedule";
     public string? Warnings => _d.Warnings;
     public string? Review => _d.ReviewReason;

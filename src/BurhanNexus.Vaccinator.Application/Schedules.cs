@@ -8,6 +8,7 @@ public sealed record ProtocolItem(int Id, int VaccineId, string VaccineName, str
     bool Approved, string? Reference, string? Warnings, string? CatchUpRule, int DoseCount)
 {
     public string Display => $"{VaccineName} – {Name}";
+    public override string ToString() => Name;
     public string ApprovalText => Approved ? "Approved by center" : "Not yet approved by center";
     public bool IsRabies => Kind is ProtocolKind.RabiesPepIntramuscular or ProtocolKind.RabiesPepIntradermal or ProtocolKind.RabiesPepPreviouslyVaccinated
         or ProtocolKind.RabiesPreExposure or ProtocolKind.RabiesSpecialCategory;

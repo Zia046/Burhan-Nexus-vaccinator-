@@ -32,20 +32,18 @@
                         <Border Style="{StaticResource StatCard}" Width="440" Height="230">
                             <DockPanel>
                                 <TextBlock DockPanel.Dock="Top" Text="{Binding Title}" FontWeight="SemiBold" Foreground="{StaticResource Navy}" Margin="0,0,0,8"/>
-                                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
                                     <ItemsControl ItemsSource="{Binding Bars}" VerticalAlignment="Bottom">
-                                        <ItemsControl.ItemsPanel><ItemsPanelTemplate><StackPanel Orientation="Horizontal" VerticalAlignment="Bottom"/></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemsPanel><ItemsPanelTemplate><UniformGrid Rows="1" VerticalAlignment="Bottom"/></ItemsPanelTemplate></ItemsControl.ItemsPanel>
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <StackPanel Width="40" Margin="2,0" VerticalAlignment="Bottom">
+                                                <StackPanel Margin="1,0" VerticalAlignment="Bottom">
                                                     <TextBlock Text="{Binding Value}" FontSize="10" HorizontalAlignment="Center" Foreground="#334155"/>
-                                                    <Border Height="{Binding Height}" Background="{Binding Color}" CornerRadius="4,4,0,0" Margin="6,2,6,0" ToolTip="{Binding Value}"/>
+                                                    <Border Height="{Binding Height}" Background="{Binding Color}" CornerRadius="4,4,0,0" Margin="3,2,3,0" MaxWidth="34" ToolTip="{Binding Value}"/>
                                                     <TextBlock Text="{Binding Label}" FontSize="9.5" Foreground="#64748B" TextAlignment="Center" TextWrapping="Wrap" Height="26"/>
                                                 </StackPanel>
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
-                                </ScrollViewer>
                             </DockPanel>
                         </Border>
                     </DataTemplate>

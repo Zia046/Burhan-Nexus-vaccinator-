@@ -18,6 +18,7 @@ public sealed record VaccineOption(int Id, string Name)
 public sealed record BatchOption(int Id, string BatchNumber, string? Brand, DateOnly Expiry, int Available)
 {
     public string Display => $"{BatchNumber}  ·  {Brand}  ·  Exp {Fmt.D(Expiry)}  ·  {Available} left";
+    public override string ToString() => Display;
 }
 
 public sealed class AdministrationInput

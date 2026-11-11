@@ -179,9 +179,9 @@ public sealed class PatientProfileViewModel : PageViewModel
     public override string Title => "Patient Profile";
     public PatientProfile P { get => _p; private set => Set(ref _p, value); }
     public string Header => $"{P.Patient.PatientNo}  ·  {P.Patient.Name}";
-    public string SubHeader => string.Join("   ·   ", new[] { P.Patient.GuardianName is null ? null : "S/O, D/O, W/O " + P.Patient.GuardianName, P.AgeText,
+    public string SubHeader => string.Join("   ·   ", new[] { P.Patient.GuardianName is null ? null : "Father / Husband: " + P.Patient.GuardianName, P.AgeText,
         P.Patient.Gender.ToString(), P.Patient.Mobile, P.Patient.Cnic, Fmt.Category(P.Patient.Category) }.Where(x => !string.IsNullOrWhiteSpace(x)));
-    public string NextText => P.NextAppointment is { } n ? $"{n.DueText} – {n.Vaccine} {n.DoseLabel} ({n.Status})" : "No pending doses";
+    public string NextText => P.NextAppointment is { } n ? $"{n.DueText} – {n.Title} ({n.Status})" : "No pending doses";
     public string Visits => string.Join(",  ", P.VisitDates.Take(12).Select(d => Fmt.D(d)));
     public bool HasReview => P.Doses.Any(d => d.NeedsReview && d.Status != "Completed") || P.Patient.IsImmunocompromised;
     public string ReviewText => P.Patient.IsImmunocompromised ? "Immunocompromised patient – vaccination decisions need clinical review." : "One or more courses are flagged for clinical review (late doses or special category).";

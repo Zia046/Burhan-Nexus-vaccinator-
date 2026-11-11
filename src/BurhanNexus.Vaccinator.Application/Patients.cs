@@ -51,6 +51,7 @@ public sealed record PatientRow(int Id, string PatientNo, string Name, string? G
 {
     public string RegisteredText => Fmt.D(RegistrationDate);
     public string Display => $"{PatientNo} – {Name}" + (GuardianName is null ? "" : $" ({GuardianName})");
+    public override string ToString() => Display;
 }
 
 public sealed record DoseRow(int AppointmentId, int CourseId, string Vaccine, string Protocol, int DoseNumber, string DoseLabel,
@@ -59,6 +60,7 @@ public sealed record DoseRow(int AppointmentId, int CourseId, string Vaccine, st
     public string DueText => Fmt.D(DueDate);
     public string GivenText => Fmt.D(GivenOn);
     public bool IsOverdue => Status == "Overdue";
+    public string Title => DoseLabel.Contains(Vaccine, StringComparison.OrdinalIgnoreCase) ? DoseLabel : $"{Vaccine} {DoseLabel}";
 }
 
 public sealed record VaccinationRow(int Id, string RecordNo, DateOnly Date, TimeOnly Time, string PatientNo, string PatientName, string Vaccine,

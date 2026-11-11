@@ -205,6 +205,7 @@ public sealed record InsulinProductRow(int Id, string Brand, string InsulinType,
     public string Display => $"{Brand} {InsulinType} {Strength} ({VialSize})";
     public string PriceText => Fmt.Money(UnitPrice);
     public bool Low => Available <= LowStockLevel;
+    public override string ToString() => Display;
 }
 
 public sealed record InsulinBatchRow(int Id, int ProductId, string Product, string BatchNumber, DateOnly? Manufactured, DateOnly Expiry, int Received, int Available,
@@ -212,6 +213,7 @@ public sealed record InsulinBatchRow(int Id, int ProductId, string Product, stri
 {
     public string ExpiryText => Fmt.D(Expiry);
     public string Display => $"{BatchNumber} · Exp {Fmt.D(Expiry)} · {Available} vial(s)";
+    public override string ToString() => Display;
 }
 
 public sealed class InsulinIssueInput
